@@ -1,21 +1,21 @@
 # Base configs
-baseurl: ""
+baseurl: "https://alessandrosebastianelli.github.io/photography"
 image_fulls_loc: "/images/fulls"
 image_thumbs_loc: "/images/thumbs"
-google_analytics: ""
+google_analytics: "UA-46465113-2"
 
 # UI configs
 title: "Photography by Alessandro Sebastianelli"
-subtitle: ""
+subtitle: "See the world through my eyes!"
 author: "Alessandro Sebastianelli"
 header:
  title: "Photography"
  subtitle: "by Alessandro Sebastianelli"
 footer:
- name: ""
- bio: ""
+ name: "Hey there, my name is Alessandro"
+ bio: "I am an engineeri from Italy."
  github: ""
-web_design: ""
+web_design: "AJ"
 social_urls:
   facebook: ""
   twitter: ""
