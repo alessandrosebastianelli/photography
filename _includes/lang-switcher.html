@@ -1,21 +1,29 @@
 {% assign lang = page.lang | default: 'en' %}
-{% assign t = site.data.i18n[lang] %}
 
-{% if page.ref %}
-  {% comment %} Post: find the translated version by matching ref {% endcomment %}
+{% if lang == 'en' %}
   {% assign alt_lang = 'it' %}
-  {% if lang == 'it' %}{% assign alt_lang = 'en' %}{% endif %}
-  {% assign alt_post = site.posts | where: "ref", page.ref | where: "lang", alt_lang | first %}
-  {% if alt_post %}
-    <a class="lang-switcher has-translation" href="{{ site.baseurl }}{{ alt_post.url }}" title="{{ t.lang_switch_title }}">{{ t.lang_switch }}</a>
-  {% else %}
-    <span class="lang-switcher" title="No translation available">{{ t.lang_switch }}</span>
-  {% endif %}
+  {% assign alt_label = 'IT' %}
 {% else %}
-  {% comment %} Static page: link to its translated counterpart {% endcomment %}
-  {% if lang == 'en' %}
-    <a class="lang-switcher has-translation" href="{{ site.baseurl }}/it{{ page.url }}">IT</a>
+  {% assign alt_lang = 'en' %}
+  {% assign alt_label = 'EN' %}
+{% endif %}
+
+{% comment %} For posts: find partner via ref + lang {% endcomment %}
+{% if page.collection == 'posts' and page.ref %}
+  {% assign alt = site.posts | where: "ref", page.ref | where: "lang", alt_lang | first %}
+  {% if alt %}
+    <a class="lang-switcher active" href="{{ site.baseurl }}{{ alt.url }}">{{ alt_label }}</a>
   {% else %}
-    <a class="lang-switcher has-translation" href="{{ site.baseurl }}{{ page.url | remove_first: '/it' }}">EN</a>
+    <span class="lang-switcher disabled">{{ alt_label }}</span>
   {% endif %}
+
+{% comment %} For static pages: derive URL by adding/removing /it/ prefix {% endcomment %}
+{% elsif page.ref %}
+  {% if lang == 'en' %}
+    {% assign alt_url = page.url | prepend: '/it' %}
+  {% else %}
+    {% assign alt_url = page.url | remove_first: '/it' %}
+  {% endif %}
+  <a class="lang-switcher active" href="{{ site.baseurl }}{{ alt_url }}">{{ alt_label }}</a>
+
 {% endif %}

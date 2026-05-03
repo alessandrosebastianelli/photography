@@ -12,35 +12,28 @@
 
 {% assign lang = page.lang | default: 'en' %}
 {% assign t = site.data.i18n[lang] %}
+{% if lang == 'it' %}{% assign base_path = '/it' %}{% else %}{% assign base_path = '' %}{% endif %}
 
-<!-- ── NAV ── -->
 <nav class="site-nav">
   <a href="{{ site.baseurl }}/" class="nav-brand">Alessandro <span>·</span> Photography</a>
   <div class="nav-right">
     <ul class="nav-links">
       <li><a href="{{ site.baseurl }}/">{{ t.nav_home }}</a></li>
-      <li><a href="{{ site.baseurl }}/{% if lang == 'it' %}it/{% endif %}blog/">{{ t.nav_journal }}</a></li>
-      <li><a href="{{ site.baseurl }}/{% if lang == 'it' %}it/{% endif %}gallery/">{{ t.nav_gallery }}</a></li>
-      <li><a href="{{ site.baseurl }}/{% if lang == 'it' %}it/{% endif %}map/">{{ t.nav_map }}</a></li>
-      <li><a href="{{ site.baseurl }}/{% if lang == 'it' %}it/{% endif %}about/">{{ t.nav_about }}</a></li>
+      <li><a href="{{ site.baseurl }}{{ base_path }}/blog/">{{ t.nav_journal }}</a></li>
+      <li><a href="{{ site.baseurl }}{{ base_path }}/gallery/">{{ t.nav_gallery }}</a></li>
+      <li><a href="{{ site.baseurl }}{{ base_path }}/map/">{{ t.nav_map }}</a></li>
+      <li><a href="{{ site.baseurl }}{{ base_path }}/about/">{{ t.nav_about }}</a></li>
     </ul>
-
-    <!-- Language switcher -->
     {% include lang-switcher.html %}
-
     <button class="nav-hamburger" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
   </div>
 </nav>
 
-<!-- ── CONTENT ── -->
 <main>{{ content }}</main>
 
-<!-- ── LIGHTBOX ── -->
 {% include lightbox.html %}
-
-<!-- ── FOOTER ── -->
 {% include footer.html %}
 
 <script src="{{ site.baseurl }}/assets/js/main.js"></script>
