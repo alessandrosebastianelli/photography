@@ -1,130 +1,259 @@
 ---
 layout: default
+title: Home
 ---
 
-<!-- Wrapper -->
-<div id="wrapper">
+<style>
+/* ── HERO ── */
+.hero {
+  position: relative; height: 100vh; min-height: 600px;
+  display: flex; align-items: flex-end;
+  padding: 4rem var(--gap); overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(14,13,11,0.95) 0%, rgba(14,13,11,0.35) 55%, rgba(14,13,11,0.15) 100%),
+              linear-gradient(135deg, #1a0f05 0%, #0e0d0b 40%, #050810 100%);
+}
+.hero-mosaic {
+  position: absolute; inset: 0;
+  display: grid; grid-template-columns: repeat(4,1fr); grid-template-rows: repeat(3,1fr);
+  gap: 3px; opacity: 0.3; filter: saturate(0.5);
+}
+.hero-mosaic div { background: var(--panel); }
+.hero-mosaic div:nth-child(1) { background: linear-gradient(135deg,#2a1f0e,#1a3040); grid-column:span 2; grid-row:span 2; }
+.hero-mosaic div:nth-child(2) { background: linear-gradient(135deg,#1a2a1a,#0e1f10); }
+.hero-mosaic div:nth-child(3) { background: linear-gradient(135deg,#2a1a10,#1a0a05); }
+.hero-mosaic div:nth-child(4) { background: linear-gradient(135deg,#10203a,#05101a); grid-row:span 2; }
+.hero-mosaic div:nth-child(5) { background: linear-gradient(135deg,#251a0a,#1a1005); grid-column:span 2; }
+.hero-mosaic div:nth-child(6) { background: linear-gradient(135deg,#1a252a,#0a151a); }
+.hero-mosaic div:nth-child(7) { background: linear-gradient(135deg,#2a200f,#1a1505); }
+.hero-mosaic div:nth-child(8) { background: linear-gradient(135deg,#0f1a20,#05101a); }
+.hero-mosaic div:nth-child(9) { background: linear-gradient(135deg,#201505,#100a05); }
+.hero-content { position: relative; z-index: 2; max-width: 800px; }
+.hero-eyebrow {
+  font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.3em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 1.2rem;
+  opacity: 0; animation: fadeUp 0.8s ease forwards 0.3s;
+}
+.hero-title {
+  font-size: clamp(3.5rem, 8vw, 7rem); font-weight: 300;
+  line-height: 0.95; letter-spacing: -0.02em; margin-bottom: 1.6rem;
+  opacity: 0; animation: fadeUp 0.9s ease forwards 0.5s;
+}
+.hero-title em { font-style: italic; color: var(--accent-soft); }
+.hero-sub {
+  font-size: 1.1rem; font-weight: 300; color: var(--warm);
+  max-width: 460px; line-height: 1.75;
+  opacity: 0; animation: fadeUp 0.9s ease forwards 0.7s;
+}
+.hero-ctas {
+  display: flex; gap: 1rem; margin-top: 2rem;
+  opacity: 0; animation: fadeUp 0.9s ease forwards 0.9s;
+}
+.btn-primary {
+  font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.18em;
+  text-transform: uppercase; padding: 0.85em 1.8em;
+  background: var(--accent); color: var(--ink); border: none; cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-primary:hover { background: var(--accent-soft); }
+.btn-ghost {
+  font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.18em;
+  text-transform: uppercase; padding: 0.85em 1.8em;
+  background: transparent; color: var(--warm);
+  border: 1px solid rgba(200,185,154,0.25); transition: border-color 0.2s, color 0.2s;
+}
+.btn-ghost:hover { border-color: var(--warm); color: var(--cream); }
+.hero-scroll {
+  position: absolute; bottom: 2.5rem; right: var(--gap);
+  display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+  font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--muted);
+  opacity: 0; animation: fadeIn 1s ease forwards 1.3s;
+}
+.scroll-line {
+  width: 1px; height: 55px;
+  background: linear-gradient(to bottom, var(--accent), transparent);
+  animation: pulse 2s ease infinite;
+}
+@keyframes pulse { 0%,100%{transform:scaleY(1);opacity:1} 50%{transform:scaleY(.6);opacity:.4} }
 
-    <!-- Header -->
-    <header id="header">
-        <h1><a href="index.html"><strong>{{ site.header.title }}</strong> {{ site.header.subtitle }}</a></h1>
-        <nav>
-            <ul>
-                <li><a href="#footer" class="icon fa-info-circle">About</a></li>
-            </ul>
-        </nav>
-    </header>
+/* ── FEATURED POSTS ── */
+.featured-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+.featured-main { grid-column:1; grid-row:1/3; position:relative; overflow:hidden; aspect-ratio:4/5; background:var(--panel); cursor:pointer; }
+.featured-side { display:flex; flex-direction:column; gap:2px; }
+.side-card { position:relative; overflow:hidden; flex:1; background:var(--panel); cursor:pointer; min-height:240px; }
+.card-img { position:absolute; inset:0; }
+.card-img img { width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.25,.46,.45,.94); }
+.card-img-placeholder { width:100%;height:100%;transition:transform .7s ease; }
+.featured-main:hover .card-img img,
+.side-card:hover .card-img img { transform:scale(1.04); }
+.card-overlay {
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(14,13,11,.92) 0%,transparent 55%);
+  display:flex;flex-direction:column;justify-content:flex-end;padding:2.2rem;
+}
+.side-card .card-overlay { padding:1.6rem; }
+.card-title { font-size:1.9rem;font-weight:300;line-height:1.15;margin-bottom:.5rem; }
+.side-card .card-title { font-size:1.3rem; }
+.card-meta { font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;color:var(--muted); display:flex;gap:.8rem; }
+.card-excerpt { font-size:.92rem;color:var(--warm);margin-top:.5rem;line-height:1.6;font-weight:300; }
 
-    <!-- Main -->
-    <div id="main">
-        {% for image in site.static_files %}
-        {% if image.path contains 'fulls' %}
-        <article class="thumb">
-            <a href="{{ site.baseurl }}{{ site.image_fulls_loc }}/{{ image.name }}" class="image">
-                <img src="{{ site.baseurl }}{{ site.image_thumbs_loc }}/{{ image.name }}" alt=""
-                     data-name="{{ image.name }}"/></a>
-            <!--<h2></h2>
-            <p></p>-->
-        </article>
-        {% endif %}
-        {% endfor %}
+/* ── BLOG GRID ── */
+.blog-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:3rem 2rem; margin-top:3rem; }
+.blog-card { cursor:pointer; }
+.blog-card-img { aspect-ratio:3/2;overflow:hidden;margin-bottom:1.2rem;background:var(--panel); }
+.blog-card-img img { width:100%;height:100%;object-fit:cover;transition:transform .5s ease; }
+.blog-card:hover .blog-card-img img { transform:scale(1.04); }
+.blog-card-tag { font-family:var(--mono);font-size:.63rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:.5rem; }
+.blog-card-title { font-size:1.45rem;font-weight:300;line-height:1.2;margin-bottom:.6rem;transition:color .2s; }
+.blog-card:hover .blog-card-title { color:var(--accent-soft); }
+.blog-card-excerpt { font-size:.88rem;color:var(--muted);line-height:1.65;margin-bottom:.8rem; }
+.blog-card-meta { font-family:var(--mono);font-size:.63rem;color:var(--muted);display:flex;align-items:center;gap:.6rem; }
+.dot { width:3px;height:3px;border-radius:50%;background:var(--muted);opacity:.5; }
+
+/* ── PHOTO STRIP ── */
+.photo-strip-section { background:var(--deep);border-top:1px solid rgba(200,185,154,.08);border-bottom:1px solid rgba(200,185,154,.08);padding:5rem 0;overflow:hidden; }
+.photo-strip { display:flex;gap:3px;overflow-x:auto;scrollbar-width:none;padding:0 var(--gap);cursor:grab; }
+.photo-strip::-webkit-scrollbar{display:none;}
+.strip-item { flex:0 0 auto;height:380px;overflow:hidden;position:relative;background:var(--panel); }
+.strip-item:nth-child(odd){width:300px;} .strip-item:nth-child(even){width:240px;} .strip-item:nth-child(3n){width:380px;}
+.strip-item img { width:100%;height:100%;object-fit:cover;transition:transform .5s ease; }
+.strip-item:hover img { transform:scale(1.04); }
+.strip-label { position:absolute;bottom:0;left:0;right:0;padding:1rem;background:linear-gradient(to top,rgba(14,13,11,.88),transparent);font-family:var(--serif);font-size:.88rem;font-style:italic;color:var(--warm);opacity:0;transition:opacity .3s; }
+.strip-item:hover .strip-label { opacity:1; }
+
+@media(max-width:900px){
+  .featured-grid{grid-template-columns:1fr;}
+  .featured-side{flex-direction:row;}
+  .blog-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:580px){
+  .blog-grid{grid-template-columns:1fr;}
+}
+</style>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-mosaic">
+    <div></div><div></div><div></div><div></div><div></div>
+    <div></div><div></div><div></div><div></div>
+  </div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Photography · Travel · Reflection</p>
+    <h1 class="hero-title">Where <em>light</em><br>meets story</h1>
+    <p class="hero-sub">An Italian engineer's journal of photographs, travels, and the quiet art of seeing.</p>
+    <div class="hero-ctas">
+      <a href="{{ site.baseurl }}/blog/" class="btn-primary">Read the Journal</a>
+      <a href="{{ site.baseurl }}/gallery/" class="btn-ghost">View Gallery</a>
     </div>
+  </div>
+  <div class="hero-scroll"><div class="scroll-line"></div>scroll</div>
+</section>
 
-    <!-- Footer -->
-    <footer id="footer" class="panel">
-        <div class="inner split">
-            <div>
-                <section>
-                    <h2>{{ site.footer.name }}</h2>
-                    <p>{{ site.footer.bio }}</p>
-                    <p>{{ site.footer.github }}</p>
-                </section>
-                <section>
-                    <h2>Sponsor</h2>
-                    <div class="ad">
-                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                        <ins class="adsbygoogle"
-                             style="display:block; text-align:center;"
-                             data-ad-layout="in-article"
-                             data-ad-format="fluid"
-                             data-ad-client="ca-pub-1702577941194110"
-                             data-ad-slot="9823584598"></ins>
-                        <script>
-                            (adsbygoogle = window.adsbygoogle || []).push({});
-                        </script>
-                    </div>
-                </section>
-                <section>
-                    <h2>Follow me on ...</h2>
-                    <ul class="icons">
-                        {% if site.social_urls.facebook %}
-                            <li>
-                                <a href="{{ site.social_urls.facebook }}" class="icon fa-facebook">
-                                    <span class="label">Facebook</span>
-                                </a>
-                            </li>
-                        {% endif %}
-                        {% if site.social_urls.twitter %}
-                            <li>
-                                <a href="{{ site.social_urls.twitter }}" class="icon fa-twitter">
-                                    <span class="label">Twitter</span>
-                                </a>
-                            </li>
-                        {% endif %}
-                        {% if site.social_urls.instagram %}
-                            <li>
-                                <a href="{{ site.social_urls.instagram }}" class="icon fa-instagram">
-                                    <span class="label">Instagram</span>
-                                </a>
-                            </li>
-                        {% endif %}
-                        {% if site.social_urls.dribbble %}
-                            <li>
-                                <a href="{{ site.social_urls.dribbble }}" class="icon fa-dribbble">
-                                    <span class="label">Dribbble</span>
-                                </a>
-                            </li>
-                        {% endif %}
-                        {% if site.social_urls.github %}
-                            <li>
-                                <a href="{{ site.social_urls.github }}" class="icon fa-github">
-                                    <span class="label">GitHub</span>
-                                </a>
-                            </li>
-                        {% endif %}
-                        {% if site.social_urls.linkedin %}
-                            <li>
-                                <a href="{{ site.social_urls.linkedin }}" class="icon fa-linkedin">
-                                    <span class="label">LinkedIn</span>
-                                </a>
-                            </li>
-                        {% endif %}
-                    </ul>
-                </section>
-                <p class="copyright">
-                    &copy; {{ site.author }}. Design: {{ site.web_design }}
-                </p>
-            </div>
-            <div>
-                <section>
-                    <h2>Get in touch</h2>
-                    <form method="post" action="#">
-                        <div class="field half first">
-                            <input type="text" name="name" id="name" placeholder="Name"/>
-                        </div>
-                        <div class="field half">
-                            <input type="text" name="email" id="email" placeholder="Email"/>
-                        </div>
-                        <div class="field">
-                            <textarea name="message" id="message" rows="4" placeholder="Message"></textarea>
-                        </div>
-                        <ul class="actions">
-                            <li><input type="submit" value="Send" class="special"/></li>
-                            <li><input type="reset" value="Reset"/></li>
-                        </ul>
-                    </form>
-                </section>
-            </div>
+<!-- ── FEATURED POSTS ── -->
+<div class="section">
+  <div class="section-header">
+    <div><span class="label">Latest</span><h2 style="margin-top:.4rem">Featured Stories</h2></div>
+    <a href="{{ site.baseurl }}/blog/" class="link-arrow">All posts</a>
+  </div>
+
+  <div class="featured-grid">
+    {% assign featured = site.posts | where: "featured", true | first %}
+    {% assign featured = featured | default: site.posts.first %}
+    {% if featured %}
+    <article class="featured-main reveal" onclick="location.href='{{ site.baseurl }}{{ featured.url }}'">
+      <div class="card-img">
+        {% if featured.cover_image %}
+        <img src="{{ site.baseurl }}{{ featured.cover_image }}" alt="{{ featured.title }}" loading="lazy">
+        {% else %}
+        <div class="card-img-placeholder" style="background:linear-gradient(135deg,#1a2535,#0d1520,#1a0d05);height:100%"></div>
+        {% endif %}
+      </div>
+      <div class="card-overlay">
+        {% if featured.tags %}<span class="tag">{{ featured.tags | first }}</span>{% endif %}
+        <h3 class="card-title">{{ featured.title }}</h3>
+        {% if featured.excerpt %}<p class="card-excerpt">{{ featured.excerpt | strip_html | truncate: 160 }}</p>{% endif %}
+        <div class="card-meta">
+          <span>{{ featured.date | date: "%b %-d, %Y" }}</span>
+          {% if featured.read_time %}<span>· {{ featured.read_time }} min</span>{% endif %}
         </div>
-    </footer>
+      </div>
+    </article>
+    {% endif %}
+
+    <div class="featured-side">
+      {% for post in site.posts limit:2 offset:1 %}
+      <article class="side-card reveal" onclick="location.href='{{ site.baseurl }}{{ post.url }}'">
+        <div class="card-img">
+          {% if post.cover_image %}
+          <img src="{{ site.baseurl }}{{ post.cover_image }}" alt="{{ post.title }}" loading="lazy">
+          {% else %}
+          <div class="card-img-placeholder" style="background:linear-gradient(135deg,#1a1a10,#0d1a0d);height:100%"></div>
+          {% endif %}
+        </div>
+        <div class="card-overlay">
+          {% if post.tags %}<span class="tag">{{ post.tags | first }}</span>{% endif %}
+          <h3 class="card-title">{{ post.title }}</h3>
+          <div class="card-meta">
+            <span>{{ post.date | date: "%b %-d, %Y" }}</span>
+            {% if post.read_time %}<span>· {{ post.read_time }} min</span>{% endif %}
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
 </div>
+
+<!-- ── RECENT BLOG POSTS ── -->
+<div class="section" style="padding-top:2rem">
+  <div class="section-header">
+    <div><span class="label">From the Journal</span><h2 style="margin-top:.4rem">Recent Writings</h2></div>
+    <a href="{{ site.baseurl }}/blog/" class="link-arrow">All posts</a>
+  </div>
+  <div class="blog-grid">
+    {% for post in site.posts limit:6 offset:3 %}
+    <article class="blog-card reveal" onclick="location.href='{{ site.baseurl }}{{ post.url }}'">
+      <div class="blog-card-img">
+        {% if post.cover_image %}
+        <img src="{{ site.baseurl }}{{ post.cover_image }}" alt="{{ post.title }}" loading="lazy">
+        {% else %}
+        <div style="width:100%;height:100%;background:linear-gradient(135deg,#1a1510,#0d1a20)"></div>
+        {% endif %}
+      </div>
+      <p class="blog-card-tag">{% if post.tags %}{{ post.tags | join: " · " }}{% endif %}</p>
+      <h3 class="blog-card-title">{{ post.title }}</h3>
+      <p class="blog-card-excerpt">{{ post.excerpt | strip_html | truncate: 130 }}</p>
+      <div class="blog-card-meta">
+        <span>{{ post.date | date: "%b %-d, %Y" }}</span>
+        {% if post.read_time %}<div class="dot"></div><span>{{ post.read_time }} min</span>{% endif %}
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- ── PHOTO STRIP ── -->
+<section class="photo-strip-section">
+  <div style="max-width:var(--max-w);margin:0 auto;padding:0 var(--gap) 2rem;">
+    <span class="label">Photo Essays</span>
+    <h2 style="font-size:clamp(2rem,4vw,3.2rem);margin-top:.4rem">Images that <em style="color:var(--accent-soft)">breathe</em></h2>
+  </div>
+  <div class="photo-strip" id="home-strip">
+    {% for photo in site.data.gallery limit:8 %}
+    <div class="strip-item" onclick="location.href='{{ site.baseurl }}/gallery/'">
+      <img src="{{ site.baseurl }}/images/thumbs/{{ photo.id }}.{{ photo.ext }}" alt="{{ photo.title }}" loading="lazy">
+      {% if photo.title %}<div class="strip-label">{{ photo.title }}</div>{% endif %}
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  initDragScroll(document.getElementById('home-strip'));
+});
+</script>

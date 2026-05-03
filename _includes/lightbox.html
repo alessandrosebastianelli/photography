@@ -1,0 +1,37 @@
+<div id="lightbox" class="lightbox">
+  <button class="lb-close" aria-label="Close">✕</button>
+  <button class="lb-prev" aria-label="Previous">‹</button>
+  <button class="lb-next" aria-label="Next">›</button>
+  <div class="lb-inner">
+    <img class="lb-img" src="" alt="">
+    <div class="lb-caption"></div>
+  </div>
+</div>
+
+<style>
+.lightbox {
+  display: none; position: fixed; inset: 0; z-index: 500;
+  background: rgba(14,13,11,0.96); align-items: center; justify-content: center;
+}
+.lightbox.open { display: flex; }
+.lb-inner { max-width: 90vw; max-height: 90vh; position: relative; }
+.lb-img { max-width: 90vw; max-height: 85vh; display: block; object-fit: contain; }
+.lb-caption {
+  font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.15em;
+  color: var(--muted); text-align: center; margin-top: 1rem;
+}
+.lb-close {
+  position: fixed; top: 1.5rem; right: 2rem;
+  background: none; border: none; color: var(--warm);
+  font-size: 1.5rem; cursor: pointer; transition: color 0.2s;
+}
+.lb-close:hover { color: var(--accent); }
+.lb-prev, .lb-next {
+  position: fixed; top: 50%; transform: translateY(-50%);
+  background: none; border: none; color: var(--warm);
+  font-size: 3rem; cursor: pointer; padding: 1rem;
+  transition: color 0.2s; line-height: 1;
+}
+.lb-prev { left: 1rem; } .lb-next { right: 1rem; }
+.lb-prev:hover, .lb-next:hover { color: var(--accent); }
+</style>

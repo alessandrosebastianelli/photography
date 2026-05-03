@@ -1,0 +1,61 @@
+# _data/locations.yml
+# Each entry drives both the interactive map and any post/gallery cross-references.
+# Fields:
+#   name        – Display name of the place
+#   lat/lng     – Coordinates for the map marker
+#   country     – Used for grouping/filtering
+#   cover       – Path to a representative image (relative to site root)
+#   posts       – List of blog post slugs linked to this place
+#   gallery_tag – Tag used to filter the gallery for this location
+
+- name: "Reykjavík, Iceland"
+  lat: 64.1355
+  lng: -21.8954
+  country: "Iceland"
+  cover: "/images/thumbs/1.jpg"
+  posts:
+    - "2025-04-12-iceland-november-aurora"
+  gallery_tag: "iceland"
+
+- name: "Kyoto, Japan"
+  lat: 35.0116
+  lng: 135.7681
+  country: "Japan"
+  cover: "/images/thumbs/2.jpg"
+  posts:
+    - "2025-01-18-kyoto-at-dusk"
+  gallery_tag: "japan"
+
+- name: "Matera, Italy"
+  lat: 40.6664
+  lng: 16.6043
+  country: "Italy"
+  cover: "/images/thumbs/3.jpg"
+  posts:
+    - "2024-11-11-matera-stone-city"
+  gallery_tag: "italy"
+
+- name: "Lofoten Islands, Norway"
+  lat: 68.1532
+  lng: 13.9931
+  country: "Norway"
+  cover: "/images/thumbs/4.jpg"
+  posts:
+    - "2024-09-05-lofoten-winter-diary"
+  gallery_tag: "norway"
+
+- name: "Dolomites, Italy"
+  lat: 46.4102
+  lng: 11.8440
+  country: "Italy"
+  cover: "/images/thumbs/5.jpg"
+  posts: []
+  gallery_tag: "dolomites"
+
+- name: "Alberobello, Italy"
+  lat: 40.7841
+  lng: 17.2394
+  country: "Italy"
+  cover: "/images/thumbs/6.jpg"
+  posts: []
+  gallery_tag: "italy"

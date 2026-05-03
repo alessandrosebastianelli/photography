@@ -1,12 +1,43 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    {% include header.html %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if page.title %}{{ page.title }} — {% endif %}{{ site.title }}</title>
+  <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | truncate: 160 }}">
+  <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/main.css">
+  {% if page.extra_css %}<link rel="stylesheet" href="{{ site.baseurl }}/assets/css/{{ page.extra_css }}">{% endif %}
+  {% seo %}
 </head>
 <body>
 
+  <!-- ── NAVIGATION ── -->
+  <nav class="site-nav">
+    <a href="{{ site.baseurl }}/" class="nav-brand">Alessandro <span>·</span> Photography</a>
+    <ul class="nav-links">
+      <li><a href="{{ site.baseurl }}/">Home</a></li>
+      <li><a href="{{ site.baseurl }}/blog/">Journal</a></li>
+      <li><a href="{{ site.baseurl }}/gallery/">Gallery</a></li>
+      <li><a href="{{ site.baseurl }}/map/">Map</a></li>
+      <li><a href="{{ site.baseurl }}/about/">About</a></li>
+    </ul>
+    <button class="nav-hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ── MAIN CONTENT ── -->
+  <main>
     {{ content }}
-    
-    {% include footer.html %}
+  </main>
+
+  <!-- ── LIGHTBOX ── -->
+  {% include lightbox.html %}
+
+  <!-- ── FOOTER ── -->
+  {% include footer.html %}
+
+  <script src="{{ site.baseurl }}/assets/js/main.js"></script>
+  {% if page.extra_js %}<script src="{{ site.baseurl }}/assets/js/{{ page.extra_js }}"></script>{% endif %}
 </body>
 </html>

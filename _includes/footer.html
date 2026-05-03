@@ -1,9 +1,44 @@
-<!-- Scripts -->
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/jquery.poptrox.js"></script>
-<script src="assets/js/skel.min.js"></script>
-<script src="assets/js/util.js"></script>
-<script src="assets/js/exif.js"></script>
-<!--[if lte IE 8]>
-<script src="assets/js/ie/respond.min.js"></script><![endif]-->
-<script src="assets/js/main.min.js"></script>
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">Alessandro <span>·</span> Photography</div>
+      <p class="footer-desc">A personal journal of photography, travel and the practice of seeing. Based in Italy, shooting everywhere.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navigate</h4>
+      <ul>
+        <li><a href="{{ site.baseurl }}/">Home</a></li>
+        <li><a href="{{ site.baseurl }}/blog/">Journal</a></li>
+        <li><a href="{{ site.baseurl }}/gallery/">Gallery</a></li>
+        <li><a href="{{ site.baseurl }}/map/">Map</a></li>
+        <li><a href="{{ site.baseurl }}/about/">About</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Topics</h4>
+      <ul>
+        <li><a href="{{ site.baseurl }}/blog/?tag=travel">Travel</a></li>
+        <li><a href="{{ site.baseurl }}/blog/?tag=technique">Technique</a></li>
+        <li><a href="{{ site.baseurl }}/blog/?tag=gear">Gear</a></li>
+        <li><a href="{{ site.baseurl }}/blog/?tag=film">Film</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Elsewhere</h4>
+      <ul>
+        {% if site.instagram %}<li><a href="https://instagram.com/{{ site.instagram }}" target="_blank">Instagram</a></li>{% endif %}
+        {% if site.github %}<li><a href="https://github.com/{{ site.github }}" target="_blank">GitHub</a></li>{% endif %}
+        {% if site.linkedin %}<li><a href="https://linkedin.com/in/{{ site.linkedin }}" target="_blank">LinkedIn</a></li>{% endif %}
+        <li><a href="{{ site.baseurl }}/feed.xml">RSS Feed</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© {{ 'now' | date: "%Y" }} Alessandro Sebastianelli. All rights reserved.</p>
+    <div class="footer-social">
+      {% if site.instagram %}<a href="https://instagram.com/{{ site.instagram }}" target="_blank">Instagram</a>{% endif %}
+      {% if site.github %}<a href="https://github.com/{{ site.github }}" target="_blank">GitHub</a>{% endif %}
+      <a href="{{ site.baseurl }}/feed.xml">RSS</a>
+    </div>
+  </div>
+</footer>

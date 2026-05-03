@@ -1,0 +1,108 @@
+---
+layout: default
+title: About
+permalink: /about/
+---
+
+<style>
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1.5fr;
+  gap: 6rem; align-items: start;
+  max-width: var(--max-w); margin: 0 auto;
+  padding: 2rem var(--gap) 6rem;
+}
+.portrait-wrap { position: sticky; top: 100px; }
+.portrait-frame {
+  width: 100%; aspect-ratio: 3/4;
+  background: linear-gradient(145deg, #1a1510, #0d1a20);
+  position: relative; overflow: hidden;
+}
+.portrait-frame img { width: 100%; height: 100%; object-fit: cover; }
+.portrait-frame::after {
+  content: '';
+  position: absolute; inset: -8px;
+  border: 1px solid rgba(201,119,58,0.22);
+  transform: translate(10px,10px);
+  pointer-events: none;
+}
+.about-stats {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 1px; margin-top: 2px; background: var(--panel);
+}
+.about-stat {
+  background: var(--surface); padding: 1.4rem 1rem;
+  text-align: center;
+}
+.about-stat-num { font-size: 2rem; font-weight: 300; color: var(--accent-soft); }
+.about-stat-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-top: 0.3rem; }
+.about-body h2 { font-size: clamp(2rem,3.5vw,3.2rem); line-height: 1.05; margin-bottom: 1.5rem; }
+.about-body h2 em { font-style: italic; color: var(--accent-soft); }
+.about-body p { font-size: 1.05rem; font-weight: 300; color: var(--warm); line-height: 1.85; margin-bottom: 1.4rem; }
+.about-body h3 { font-size: 1.3rem; color: var(--cream); margin: 2.5rem 0 1rem; }
+.gear-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+.gear-list li { font-size: 0.95rem; color: var(--muted); font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.05em; padding: 0.5rem 0; border-bottom: 1px solid rgba(200,185,154,0.08); }
+.gear-list li span { color: var(--warm); }
+@media (max-width:800px) {
+  .about-grid { grid-template-columns:1fr; gap:3rem; }
+  .portrait-wrap { position:static; }
+}
+</style>
+
+<div class="page-header">
+  <span class="label">About me</span>
+  <h1>The <em>Photographer</em></h1>
+</div>
+
+<div class="about-grid">
+  <div class="portrait-wrap reveal">
+    <div class="portrait-frame">
+      <!-- Add your photo: <img src="{{ site.baseurl }}/images/portrait.jpg" alt="Alessandro Sebastianelli"> -->
+    </div>
+    <div class="about-stats">
+      <div class="about-stat">
+        <div class="about-stat-num">{{ site.data.gallery | size }}+</div>
+        <div class="about-stat-label">Photos</div>
+      </div>
+      <div class="about-stat">
+        <div class="about-stat-num">{{ site.data.locations | map: 'country' | uniq | size }}</div>
+        <div class="about-stat-label">Countries</div>
+      </div>
+      <div class="about-stat">
+        <div class="about-stat-num">{{ site.posts | size }}</div>
+        <div class="about-stat-label">Posts</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="about-body reveal">
+    <span class="label" style="display:block;margin-bottom:1rem">Alessandro Sebastianelli</span>
+    <h2>An engineer who<br>can't stop <em>looking</em></h2>
+
+    <p>
+      I'm an engineer from Italy with an incurable habit of carrying a camera everywhere. Photography came to me as a way to slow down — a discipline that forces you to really look at the world rather than just move through it.
+    </p>
+    <p>
+      This blog is where technical obsession meets the urge to wander. I write about the places I've visited, the techniques I've learned (and unlearned), and the honest, sometimes unglamorous reality of making photographs you can be proud of.
+    </p>
+    <p>
+      Every photo here is a place I stood, a light I waited for, a moment I almost didn't catch. The images on this site are in reduced resolution to keep navigation smooth — but the originals are printed and hanging on walls.
+    </p>
+
+    <h3>Gear</h3>
+    <ul class="gear-list">
+      <li><span>Body →</span> Sony A7 III</li>
+      <li><span>Wide →</span> Sony FE 16–35mm f/2.8 GM</li>
+      <li><span>Standard →</span> Sony FE 35mm f/1.8</li>
+      <li><span>Tele →</span> Sony FE 70–200mm f/4 G</li>
+      <li><span>Film →</span> Hasselblad 500C/M + 80mm Planar</li>
+      <li><span>Tripod →</span> Peak Design Travel Tripod</li>
+    </ul>
+
+    <h3>Get in touch</h3>
+    <p>
+      Questions, collaborations, or just want to talk cameras? Reach me on
+      {% if site.instagram %}<a href="https://instagram.com/{{ site.instagram }}" style="color:var(--accent-soft)">Instagram</a> or {% endif %}
+      <a href="https://github.com/{{ site.github }}" style="color:var(--accent-soft)">GitHub</a>.
+    </p>
+  </div>
+</div>

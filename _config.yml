@@ -1,25 +1,35 @@
-# Base configs
-baseurl: "https://alessandrosebastianelli.github.io/photography"
-image_fulls_loc: "/images/fulls"
-image_thumbs_loc: "/images/thumbs"
-google_analytics: "UA-46465113-2"
-
-# UI configs
 title: "Photography by Alessandro Sebastianelli"
-subtitle: "See the world through my eyes!"
+description: "An Italian engineer's journal of photographs, travels, and the quiet art of seeing."
 author: "Alessandro Sebastianelli"
-header:
- title: "Photography"
- subtitle: "by Alessandro Sebastianelli"
-footer:
- name: "Hey there, my name is Alessandro"
- bio: "I am an engineer from Italy with a passion for photography. The photos on this website are in low res to keep the navigation smoother and faster."
- github: ""
-web_design: "AJ"
-social_urls:
-  facebook: ""
-  twitter: ""
-  instagram: ""
-  dribbble: ""
-  linkedin: ""
-  github: ""
+email: ""
+baseurl: "/photography"   # change to "" if deploying at root
+url: "https://alessandrosebastianelli.github.io"
+
+# Social
+instagram: ""
+github: "alessandrosebastianelli"
+linkedin: "alessandrosebastianelli"
+
+# Build
+markdown: kramdown
+highlighter: rouge
+permalink: /blog/:year/:month/:day/:title/
+
+# Collections
+collections:
+  posts:
+    output: true
+    permalink: /blog/:year/:month/:day/:title/
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"

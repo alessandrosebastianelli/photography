@@ -1,0 +1,53 @@
+# _data/gallery.yml
+# Add new photos here. Each entry auto-populates the /gallery page.
+# Fields:
+#   id        – filename without extension (looks for images/fulls/ID.jpg + images/thumbs/ID.jpg)
+#   ext       – file extension (jpg, JPG, png…)
+#   title     – optional caption shown on hover / lightbox
+#   location  – display string
+#   tags      – array; used for filtering (match gallery_tag in locations.yml)
+#   date      – YYYY-MM-DD
+
+- id: "1"
+  ext: jpg
+  title: "Golden light over the fjord"
+  location: "Reykjavík, Iceland"
+  tags: [iceland, landscape]
+  date: "2024-11-10"
+
+- id: "2"
+  ext: jpg
+  title: "Bamboo grove at first light"
+  location: "Kyoto, Japan"
+  tags: [japan, nature]
+  date: "2025-01-15"
+
+- id: "3"
+  ext: jpg
+  title: "The Sassi caves at dusk"
+  location: "Matera, Italy"
+  tags: [italy, architecture]
+  date: "2024-11-05"
+
+- id: "4"
+  ext: jpg
+  title: "Red huts, grey sea"
+  location: "Lofoten, Norway"
+  tags: [norway, landscape]
+  date: "2024-09-02"
+
+- id: "5"
+  ext: jpg
+  title: "Storm light on the peaks"
+  location: "Dolomites, Italy"
+  tags: [dolomites, landscape, italy]
+  date: "2024-08-20"
+
+- id: "6"
+  ext: jpg
+  title: "Trulli at dawn"
+  location: "Alberobello, Italy"
+  tags: [italy, architecture]
+  date: "2024-07-18"
+
+# ── Add more entries below following the same format ──

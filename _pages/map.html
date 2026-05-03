@@ -1,0 +1,267 @@
+---
+layout: default
+title: Travel Map
+permalink: /map/
+---
+
+<style>
+/* ── MAP PAGE ── */
+.map-wrapper {
+  position: relative;
+  height: calc(100vh - 64px);
+  margin-top: 64px;
+}
+#travel-map {
+  width: 100%; height: 100%;
+}
+
+/* Leaflet dark overrides */
+.leaflet-container { background: #0e0d0b; }
+.leaflet-tile { filter: brightness(0.82) saturate(0.7) hue-rotate(10deg); }
+
+/* Custom marker */
+.map-marker {
+  width: 14px; height: 14px;
+  background: var(--accent);
+  border-radius: 50%;
+  border: 2px solid rgba(201,119,58,0.4);
+  box-shadow: 0 0 0 4px rgba(201,119,58,0.12);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.map-marker:hover { transform: scale(1.4); }
+.map-marker.visited { background: var(--accent-soft); }
+
+/* Leaflet popup custom style */
+.leaflet-popup-content-wrapper {
+  background: var(--surface) !important;
+  border: 1px solid rgba(200,185,154,0.15) !important;
+  border-radius: 0 !important;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.6) !important;
+  color: var(--cream) !important;
+  font-family: var(--serif) !important;
+  padding: 0 !important;
+}
+.leaflet-popup-tip { background: var(--surface) !important; }
+.leaflet-popup-content { margin: 0 !important; width: 300px !important; }
+.leaflet-popup-close-button { color: var(--muted) !important; font-size: 1.2rem !important; top: 10px !important; right: 12px !important; }
+
+.popup-inner { padding: 1.5rem; }
+.popup-img { width: 100%; height: 160px; object-fit: cover; display: block; background: var(--panel); }
+.popup-country { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.4rem; }
+.popup-name { font-size: 1.35rem; font-weight: 300; line-height: 1.2; margin-bottom: 1rem; }
+.popup-posts h4 { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem; }
+.popup-post-link {
+  display: block; padding: 0.5rem 0;
+  border-top: 1px solid rgba(200,185,154,0.08);
+  font-size: 0.9rem; font-weight: 300; color: var(--warm);
+  transition: color 0.2s;
+}
+.popup-post-link:hover { color: var(--accent-soft); }
+.popup-gallery-link {
+  display: inline-block; margin-top: 1rem;
+  font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--accent); border-bottom: 1px solid var(--accent); padding-bottom: 2px;
+  transition: color 0.2s;
+}
+.popup-gallery-link:hover { color: var(--accent-soft); border-color: var(--accent-soft); }
+
+/* Side panel (location list) */
+.map-sidebar {
+  position: absolute;
+  top: 1.5rem; left: 1.5rem;
+  z-index: 400;
+  background: rgba(26,24,22,0.95);
+  border: 1px solid rgba(200,185,154,0.12);
+  backdrop-filter: blur(8px);
+  width: 220px;
+  max-height: calc(100vh - 140px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--muted) transparent;
+}
+.sidebar-header {
+  padding: 1.2rem 1.2rem 0.8rem;
+  border-bottom: 1px solid rgba(200,185,154,0.1);
+}
+.sidebar-header .label { display: block; margin-bottom: 0.3rem; }
+.sidebar-header h3 { font-size: 1.1rem; font-weight: 300; }
+.sidebar-item {
+  display: flex; align-items: center; gap: 0.8rem;
+  padding: 0.9rem 1.2rem;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(200,185,154,0.06);
+  transition: background 0.15s;
+}
+.sidebar-item:hover { background: rgba(201,119,58,0.08); }
+.sidebar-item.active { background: rgba(201,119,58,0.12); }
+.sidebar-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+.sidebar-name { font-size: 0.88rem; color: var(--warm); line-height: 1.3; }
+.sidebar-country { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+
+/* Stats bar */
+.map-stats {
+  position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
+  z-index: 400;
+  background: rgba(26,24,22,0.9);
+  border: 1px solid rgba(200,185,154,0.12);
+  backdrop-filter: blur(8px);
+  display: flex; gap: 0; padding: 0;
+}
+.map-stat {
+  padding: 1rem 2rem;
+  border-right: 1px solid rgba(200,185,154,0.1);
+  text-align: center;
+}
+.map-stat:last-child { border-right: none; }
+.map-stat-num { font-size: 1.6rem; font-weight: 300; color: var(--accent-soft); line-height: 1; }
+.map-stat-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-top: 0.3rem; }
+
+@media (max-width: 600px) {
+  .map-sidebar { display: none; }
+  .map-stats { bottom: 1rem; gap: 0; }
+  .map-stat { padding: 0.8rem 1rem; }
+}
+</style>
+
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+
+<div class="map-wrapper">
+  <!-- Sidebar -->
+  <div class="map-sidebar">
+    <div class="sidebar-header">
+      <span class="label">Locations</span>
+      <h3>Places visited</h3>
+    </div>
+    {% for loc in site.data.locations %}
+    <div class="sidebar-item" data-lat="{{ loc.lat }}" data-lng="{{ loc.lng }}" data-name="{{ loc.name }}">
+      <div class="sidebar-dot"></div>
+      <div>
+        <div class="sidebar-name">{{ loc.name | split: ',' | first }}</div>
+        <div class="sidebar-country">{{ loc.country }}</div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Map -->
+  <div id="travel-map"></div>
+
+  <!-- Stats bar -->
+  <div class="map-stats">
+    <div class="map-stat">
+      <div class="map-stat-num">{{ site.data.locations | size }}</div>
+      <div class="map-stat-label">Places</div>
+    </div>
+    <div class="map-stat">
+      <div class="map-stat-num">{{ site.data.locations | map: 'country' | uniq | size }}</div>
+      <div class="map-stat-label">Countries</div>
+    </div>
+    <div class="map-stat">
+      <div class="map-stat-num">{{ site.posts | size }}</div>
+      <div class="map-stat-label">Posts</div>
+    </div>
+    <div class="map-stat">
+      <div class="map-stat-num">{{ site.data.gallery | size }}</div>
+      <div class="map-stat-label">Photos</div>
+    </div>
+  </div>
+</div>
+
+<!-- Leaflet JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+
+<script>
+// Build locations from Jekyll data
+const locations = [
+  {% for loc in site.data.locations %}
+  {
+    name: {{ loc.name | jsonify }},
+    country: {{ loc.country | jsonify }},
+    lat: {{ loc.lat }},
+    lng: {{ loc.lng }},
+    cover: {{ loc.cover | default: '' | prepend: site.baseurl | jsonify }},
+    galleryTag: {{ loc.gallery_tag | default: '' | jsonify }},
+    posts: [
+      {% for slug in loc.posts %}
+      {% assign post = site.posts | where: "slug", slug | first %}
+      {% if post %}
+      { title: {{ post.title | jsonify }}, url: {{ post.url | prepend: site.baseurl | jsonify }} }{% unless forloop.last %},{% endunless %}
+      {% endif %}
+      {% endfor %}
+    ]
+  }{% unless forloop.last %},{% endunless %}
+  {% endfor %}
+];
+
+const baseUrl = {{ site.baseurl | jsonify }};
+
+// Init map — dark tile layer
+const map = L.map('travel-map', {
+  center: [30, 15],
+  zoom: 3,
+  zoomControl: false,
+  attributionControl: false
+});
+
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+  attribution: '© OpenStreetMap contributors © CARTO',
+  subdomains: 'abcd', maxZoom: 19
+}).addTo(map);
+
+L.control.zoom({ position: 'bottomright' }).addTo(map);
+L.control.attribution({ position: 'bottomright', prefix: false }).addTo(map);
+
+// Custom marker icon
+function makeIcon() {
+  return L.divIcon({ className: '', html: '<div class="map-marker"></div>', iconSize: [14, 14], iconAnchor: [7, 7], popupAnchor: [0, -12] });
+}
+
+// Build popup HTML
+function popupHTML(loc) {
+  let html = '';
+  if (loc.cover) html += `<img class="popup-img" src="${loc.cover}" alt="${loc.name}" loading="lazy">`;
+  html += `<div class="popup-inner">`;
+  html += `<div class="popup-country">${loc.country}</div>`;
+  html += `<div class="popup-name">${loc.name}</div>`;
+  if (loc.posts.length) {
+    html += `<div class="popup-posts"><h4>Related Posts</h4>`;
+    loc.posts.forEach(p => { html += `<a class="popup-post-link" href="${p.url}">${p.title}</a>`; });
+    html += `</div>`;
+  }
+  if (loc.galleryTag) {
+    html += `<a class="popup-gallery-link" href="${baseUrl}/gallery/?tag=${loc.galleryTag}">View photos from here →</a>`;
+  }
+  html += `</div>`;
+  return html;
+}
+
+// Add markers
+const markers = [];
+locations.forEach((loc, i) => {
+  const marker = L.marker([loc.lat, loc.lng], { icon: makeIcon() })
+    .bindPopup(popupHTML(loc), { maxWidth: 300, minWidth: 300 })
+    .addTo(map);
+  markers.push({ marker, loc });
+});
+
+// Draw connecting lines (travel path in chronological order)
+const latlngs = locations.map(l => [l.lat, l.lng]);
+L.polyline(latlngs, {
+  color: 'rgba(201,119,58,0.25)',
+  weight: 1.5,
+  dashArray: '4 8'
+}).addTo(map);
+
+// Sidebar click → fly to marker
+document.querySelectorAll('.sidebar-item').forEach((item, i) => {
+  item.addEventListener('click', () => {
+    const loc = locations[i];
+    map.flyTo([loc.lat, loc.lng], 7, { duration: 1.2 });
+    setTimeout(() => markers[i].marker.openPopup(), 1200);
+    document.querySelectorAll('.sidebar-item').forEach(s => s.classList.remove('active'));
+    item.classList.add('active');
+  });
+});
+</script>
