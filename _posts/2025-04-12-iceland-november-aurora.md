@@ -2,6 +2,8 @@
 layout: post
 title: "Iceland in November: Chasing the Aurora Through Frozen Fjords"
 date: 2025-04-12
+lang: en
+ref: iceland-november-aurora
 tags: [travel, iceland, landscape]
 location: "Reykjavík, Iceland"
 cover_image: /images/fulls/1.jpg
@@ -24,20 +26,20 @@ I shot for three hours in -18°C. By the end my shutter finger was genuinely num
 
 ## On Shooting in the Cold
 
-Cold weather photography is mostly logistics. A few things that made the difference for me:
+Cold weather photography is mostly logistics. A few things that made the difference:
 
-**Batteries.** Carry three times as many as you think you need. Keep spares warm in your inner jacket pocket. Rotate them out every twenty minutes.
+**Batteries.** Carry three times as many as you think you need. Keep spares warm in your inner jacket pocket and rotate them every twenty minutes.
 
-**Condensation.** When you bring a cold camera inside, put it in a sealed plastic bag first. Let it warm up slowly inside the bag. Otherwise the sudden warmth will fog every element in your lens.
+**Condensation.** When you bring a cold camera inside, seal it in a plastic bag first. Let it warm slowly inside the bag — otherwise the sudden warmth fogs every element in your lens.
 
-**Touch screens.** Useless with gloves. I switched my Sony to the physical dial interface entirely and wore thin liner gloves under my heavier mitts.
+**Touch screens.** Useless with gloves. Switch your camera to physical dial control and wear thin liner gloves under heavier mitts.
 
 ## The Westfjords
 
-Most visitors to Iceland in November stay on the Ring Road. The Westfjords in winter are genuinely remote — some roads become impassable — but if you have the right vehicle and the willingness to improvise, they reward you with a landscape that feels essentially uninhabited.
+Most visitors in November stay on the Ring Road. The Westfjords in winter are genuinely remote — some roads become impassable — but if you have a capable vehicle and the willingness to improvise, they reward you with a landscape that feels essentially uninhabited.
 
 I spent four days in Ísafjörður. The light at this latitude in November rises around 11am and is gone by 3pm. Four hours of usable light per day forces a discipline I found clarifying rather than frustrating. You stop waiting for the perfect moment and start working with what you have.
 
 ---
 
-*All photos taken with a Sony A7 III. Primary lenses: 16–35mm f/2.8 GM for aurora and landscape wide shots, 70–200mm f/4 G for compressed mountain details.*
+*All photos taken with a Sony A7 III. Primary lenses: 16–35mm f/2.8 GM for aurora and wide landscapes, 70–200mm f/4 G for compressed mountain details.*

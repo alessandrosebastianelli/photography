@@ -1,6 +1,6 @@
 # Photography Blog — Alessandro Sebastianelli
 
-A Jekyll-based photography blog + gallery with a travel map. Deployed via GitHub Pages.
+Jekyll-based photography blog + gallery + travel map, with EN/IT bilingual support.
 
 ---
 
@@ -9,38 +9,42 @@ A Jekyll-based photography blog + gallery with a travel map. Deployed via GitHub
 ```
 photography-blog/
 │
-├── _config.yml              ← Site-wide settings (baseurl, author, social links)
+├── _config.yml              ← Site settings (baseurl, author, social)
 │
 ├── _data/
-│   ├── gallery.yml          ← ✏️ ADD PHOTOS HERE — one entry per image
-│   └── locations.yml        ← ✏️ ADD TRAVEL LOCATIONS HERE — drives the map
+│   ├── i18n.yml             ← ALL UI strings in EN + IT
+│   ├── gallery.yml          ← ✏️ Add photos here
+│   └── locations.yml        ← ✏️ Add map pins here
 │
 ├── _layouts/
-│   ├── default.html         ← Shell: nav + footer + lightbox for every page
-│   └── post.html            ← Individual blog post template
+│   ├── default.html         ← Nav + footer shell (all pages)
+│   └── post.html            ← Individual blog post
 │
 ├── _includes/
-│   ├── footer.html          ← Site footer
-│   └── lightbox.html        ← Lightbox overlay (auto-included in default)
+│   ├── footer.html
+│   ├── lightbox.html
+│   └── lang-switcher.html   ← Language toggle in nav
 │
 ├── _pages/
-│   ├── blog.html            ← /blog/ — filterable post list
-│   ├── gallery.html         ← /gallery/ — masonry photo grid with lightbox
-│   ├── map.html             ← /map/ — interactive Leaflet travel map
-│   └── about.html           ← /about/ — bio, gear list
+│   ├── blog.html            ← /blog/    (EN)
+│   ├── gallery.html         ← /gallery/ (EN)
+│   ├── map.html             ← /map/     (EN)
+│   ├── about.html           ← /about/   (EN)
+│   └── it/
+│       ├── blog.html        ← /it/blog/    (IT)
+│       ├── gallery.html     ← /it/gallery/ (IT)
+│       ├── map.html         ← /it/map/     (IT)
+│       └── about.html       ← /it/about/   (IT)
 │
 ├── _posts/
-│   └── YYYY-MM-DD-title.md  ← ✏️ ADD BLOG POSTS HERE (Markdown)
+│   ├── YYYY-MM-DD-slug.md      ← EN post  (lang: en, ref: slug)
+│   └── YYYY-MM-DD-slug.it.md  ← IT post  (lang: it, ref: slug)
 │
-├── assets/
-│   ├── css/main.css         ← All design tokens + shared styles
-│   └── js/main.js           ← Nav, lightbox, filters, drag-scroll, scroll-reveal
-│
-├── images/
-│   ├── fulls/               ← Full-resolution images (1.jpg, 2.jpg, …)
-│   └── thumbs/              ← Thumbnail images (same filenames)
-│
-└── index.html               ← Homepage
+├── assets/css/main.css      ← Design tokens + shared styles
+├── assets/js/main.js        ← Nav, lightbox, filters, drag-scroll
+├── images/fulls/            ← Full-res photos
+├── images/thumbs/           ← Thumbnail photos
+└── index.html               ← Homepage (EN)
 ```
 
 ---
@@ -48,70 +52,83 @@ photography-blog/
 ## Setup
 
 ```bash
-# 1. Install dependencies
-gem install bundler
 bundle install
-
-# 2. Run locally
 bundle exec jekyll serve
-
-# 3. Visit http://localhost:4000/photography/
+# → http://localhost:4000/photography/
 ```
 
 ---
 
-## Adding Content
+## Adding a Blog Post
 
-### New blog post
-Create a file in `_posts/` named `YYYY-MM-DD-your-title.md`:
+Create `_posts/YYYY-MM-DD-your-slug.md`:
 
 ```markdown
 ---
 layout: post
-title: "Your Post Title"
+title: "Your Title"
 date: 2025-06-01
-tags: [travel, iceland]          # used for filtering
-location: "Reykjavík, Iceland"   # shown in post header
-cover_image: /images/fulls/1.jpg # hero image
-excerpt: "Short description shown in blog list."
-read_time: 5                     # minutes
-featured: true                   # show as hero on homepage (optional)
+lang: en
+ref: your-slug          # must match the IT counterpart
+tags: [travel, italy]
+location: "Rome, Italy"
+cover_image: /images/fulls/XX.jpg
+excerpt: "Short preview text."
+read_time: 5
+featured: true          # optional — shows as hero on homepage
 ---
 
-Your content here in **Markdown**.
+Your content in Markdown.
 ```
 
-### New photo
-1. Add `images/fulls/XX.jpg` and `images/thumbs/XX.jpg`
-2. Add an entry to `_data/gallery.yml`:
+For the Italian version, create `_posts/YYYY-MM-DD-your-slug.it.md` with `lang: it` and the same `ref: your-slug`. The language switcher in the nav will automatically link them.
+
+**You don't have to translate every post.** The Italian blog list only shows posts with `lang: it`. Untranslated posts simply don't appear there.
+
+---
+
+## Adding a Photo
+
+1. Drop `images/fulls/XX.jpg` and `images/thumbs/XX.jpg`
+2. Add to `_data/gallery.yml`:
 
 ```yaml
 - id: "XX"
   ext: jpg
-  title: "Caption shown in lightbox"
+  title: "English caption"
+  title_it: "Didascalia italiana"
   location: "Place, Country"
   tags: [landscape, italy]
   date: "2025-06-01"
 ```
 
-### New map location
-Add an entry to `_data/locations.yml`:
+---
+
+## Adding a Map Location
+
+Add to `_data/locations.yml`:
 
 ```yaml
 - name: "City, Country"
+  name_it: "Città, Paese"
   lat: 41.9028
   lng: 12.4964
   country: "Italy"
+  country_it: "Italia"
   cover: "/images/thumbs/XX.jpg"
   posts:
-    - "2025-06-01-your-post-slug"  # slug = filename without date
+    - "your-post-slug"    # matches the ref: field in your post
   gallery_tag: "italy"
 ```
 
 ---
 
-## Deployment (GitHub Pages)
+## Adding/Editing UI Strings
 
-1. Set `baseurl: "/photography"` in `_config.yml` (or `""` if at root)
-2. Push to GitHub
-3. Enable GitHub Pages in repo Settings → Pages → source: `master` branch
+All interface text lives in `_data/i18n.yml`. Edit any value there — no template changes needed.
+
+---
+
+## Deployment
+
+Set `baseurl: "/photography"` in `_config.yml` (or `""` if deploying at root). Push to GitHub and enable Pages in repo Settings.

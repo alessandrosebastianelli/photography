@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Journal
-lang: en
+title: Diario
+lang: it
 ref: blog
-permalink: /blog/
+permalink: /it/blog/
 ---
-{% assign t = site.data.i18n['en'] %}
+{% assign t = site.data.i18n['it'] %}
 
 <style>
 .posts-list { max-width:var(--max-w); margin:0 auto; padding:0 var(--gap) 5rem; }
@@ -31,17 +31,17 @@ permalink: /blog/
 <div class="posts-list">
   <div class="filter-bar">
     <button class="filter-pill active" data-tag="all">{{ t.filter_all }}</button>
-    <button class="filter-pill" data-tag="travel">Travel</button>
-    <button class="filter-pill" data-tag="technique">Technique</button>
-    <button class="filter-pill" data-tag="gear">Gear</button>
-    <button class="filter-pill" data-tag="film">Film</button>
-    <button class="filter-pill" data-tag="italy">Italy</button>
-    <button class="filter-pill" data-tag="iceland">Iceland</button>
-    <button class="filter-pill" data-tag="japan">Japan</button>
+    <button class="filter-pill" data-tag="travel">Viaggi</button>
+    <button class="filter-pill" data-tag="technique">Tecnica</button>
+    <button class="filter-pill" data-tag="gear">Attrezzatura</button>
+    <button class="filter-pill" data-tag="film">Pellicola</button>
+    <button class="filter-pill" data-tag="italy">Italia</button>
+    <button class="filter-pill" data-tag="iceland">Islanda</button>
+    <button class="filter-pill" data-tag="japan">Giappone</button>
   </div>
 
   {% for post in site.posts %}
-  {% if post.lang == 'en' or post.lang == nil %}
+  {% if post.lang == 'it' %}
   <article class="post-list-item reveal" data-tags="{{ post.tags | join:' ' }}" onclick="location.href='{{ site.baseurl }}{{ post.url }}'">
     <div class="post-list-img">
       {% if post.cover_image %}<img src="{{ site.baseurl }}{{ post.cover_image }}" alt="{{ post.title }}" loading="lazy">
@@ -52,7 +52,7 @@ permalink: /blog/
       <h2 class="post-list-title">{{ post.title }}</h2>
       <p class="post-list-excerpt">{{ post.excerpt | strip_html | truncate:200 }}</p>
       <div class="post-list-meta">
-        <span>{{ post.date | date:"%B %-d, %Y" }}</span>
+        <span>{{ post.date | date:"%-d %B %Y" }}</span>
         {% if post.location %}<span>· {{ post.location }}</span>{% endif %}
         {% if post.read_time %}<span>· {{ post.read_time }} {{ t.min_read }}</span>{% endif %}
       </div>
@@ -60,6 +60,11 @@ permalink: /blog/
   </article>
   {% endif %}
   {% endfor %}
+
+  {% assign it_posts = site.posts | where:'lang','it' %}
+  {% if it_posts.size == 0 %}
+  <p style="color:var(--muted);font-style:italic;padding:3rem 0;">Nessun articolo in italiano ancora. <a href="{{ site.baseurl }}/blog/" style="color:var(--accent-soft)">Leggi in inglese →</a></p>
+  {% endif %}
 </div>
 
 <script>document.addEventListener('DOMContentLoaded',()=>{ initFilters('.posts-list','.post-list-item','data-tags'); });</script>

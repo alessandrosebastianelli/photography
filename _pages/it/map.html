@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Travel Map
-lang: en
+title: Mappa dei Viaggi
+lang: it
 ref: map
-permalink: /map/
+permalink: /it/map/
 ---
-{% assign t = site.data.i18n['en'] %}
+{% assign t = site.data.i18n['it'] %}
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <style>
@@ -26,8 +26,7 @@ permalink: /map/
 .popup-posts h4 { font-family:var(--mono); font-size:.6rem; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); margin-bottom:.6rem; }
 .popup-post-link { display:block; padding:.5rem 0; border-top:1px solid rgba(200,185,154,.08); font-size:.9rem; font-weight:300; color:var(--warm); transition:color .2s; }
 .popup-post-link:hover { color:var(--accent-soft); }
-.popup-gallery-link { display:inline-block; margin-top:1rem; font-family:var(--mono); font-size:.65rem; letter-spacing:.15em; text-transform:uppercase; color:var(--accent); border-bottom:1px solid var(--accent); padding-bottom:2px; transition:color .2s; }
-.popup-gallery-link:hover { color:var(--accent-soft); border-color:var(--accent-soft); }
+.popup-gallery-link { display:inline-block; margin-top:1rem; font-family:var(--mono); font-size:.65rem; letter-spacing:.15em; text-transform:uppercase; color:var(--accent); border-bottom:1px solid var(--accent); padding-bottom:2px; }
 .map-sidebar { position:absolute; top:1.5rem; left:1.5rem; z-index:400; background:rgba(26,24,22,0.95); border:1px solid rgba(200,185,154,.12); backdrop-filter:blur(8px); width:210px; max-height:calc(100vh - 140px); overflow-y:auto; scrollbar-width:thin; scrollbar-color:var(--muted) transparent; }
 .sidebar-header { padding:1.2rem 1.2rem .8rem; border-bottom:1px solid rgba(200,185,154,.1); }
 .sidebar-header .label { display:block; margin-bottom:.3rem; }
@@ -56,8 +55,8 @@ permalink: /map/
     <div class="sidebar-item" data-idx="{{ forloop.index0 }}">
       <div class="sidebar-dot"></div>
       <div>
-        <div class="sidebar-name">{{ loc.name | split:',' | first }}</div>
-        <div class="sidebar-country">{{ loc.country }}</div>
+        <div class="sidebar-name">{{ loc.name_it | default: loc.name | split:',' | first }}</div>
+        <div class="sidebar-country">{{ loc.country_it | default: loc.country }}</div>
       </div>
     </div>
     {% endfor %}
@@ -68,7 +67,7 @@ permalink: /map/
   <div class="map-stats">
     <div class="map-stat"><div class="map-stat-num">{{ site.data.locations | size }}</div><div class="map-stat-label">{{ t.map_places }}</div></div>
     <div class="map-stat"><div class="map-stat-num">{{ site.data.locations | map:'country' | uniq | size }}</div><div class="map-stat-label">{{ t.map_countries }}</div></div>
-    <div class="map-stat"><div class="map-stat-num">{{ site.posts | where:'lang','en' | size }}</div><div class="map-stat-label">{{ t.map_posts }}</div></div>
+    <div class="map-stat"><div class="map-stat-num">{{ site.posts | where:'lang','it' | size }}</div><div class="map-stat-label">{{ t.map_posts }}</div></div>
     <div class="map-stat"><div class="map-stat-num">{{ site.data.gallery | size }}</div><div class="map-stat-label">{{ t.map_photos }}</div></div>
   </div>
 </div>
@@ -76,14 +75,14 @@ permalink: /map/
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
 const locations = [{% for loc in site.data.locations %}{
-  name: {{ loc.name | jsonify }},
-  country: {{ loc.country | jsonify }},
+  name: {{ loc.name_it | default: loc.name | jsonify }},
+  country: {{ loc.country_it | default: loc.country | jsonify }},
   lat: {{ loc.lat }}, lng: {{ loc.lng }},
   cover: "{{ loc.cover | default:'' | prepend: site.baseurl }}",
   galleryTag: {{ loc.gallery_tag | default:'' | jsonify }},
   viewPhotos: {{ t.map_view_photos | jsonify }},
   relatedLabel: {{ t.map_related | jsonify }},
-  posts: [{% for slug in loc.posts %}{% assign matched = site.posts | where:'lang','en' | where:'slug',slug | first %}{% if matched %}{ title: {{ matched.title | jsonify }}, url: "{{ matched.url | prepend: site.baseurl }}" }{% unless forloop.last %},{% endunless %}{% endif %}{% endfor %}]
+  posts: [{% for slug in loc.posts %}{% assign matched = site.posts | where:'lang','it' | where:'slug',slug | first %}{% if matched %}{ title: {{ matched.title | jsonify }}, url: "{{ matched.url | prepend: site.baseurl }}" }{% unless forloop.last %},{% endunless %}{% endif %}{% endfor %}]
 }{% unless forloop.last %},{% endunless %}{% endfor %}];
 
 const map = L.map('travel-map',{ center:[35,15], zoom:3, zoomControl:false, attributionControl:false });
@@ -91,22 +90,18 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{ su
 L.control.zoom({ position:'bottomright' }).addTo(map);
 
 function makeIcon(){ return L.divIcon({ className:'', html:'<div class="map-marker"></div>', iconSize:[14,14], iconAnchor:[7,7], popupAnchor:[0,-12] }); }
-
 function popupHTML(loc){
   let h = '';
   if(loc.cover) h += `<img class="popup-img" src="${loc.cover}" alt="${loc.name}" loading="lazy">`;
-  h += `<div class="popup-inner">`;
-  h += `<div class="popup-country">${loc.country}</div>`;
-  h += `<div class="popup-name">${loc.name}</div>`;
+  h += `<div class="popup-inner"><div class="popup-country">${loc.country}</div><div class="popup-name">${loc.name}</div>`;
   if(loc.posts.length){ h += `<div class="popup-posts"><h4>${loc.relatedLabel}</h4>`; loc.posts.forEach(p=>{ h+=`<a class="popup-post-link" href="${p.url}">${p.title}</a>`; }); h += `</div>`; }
-  if(loc.galleryTag) h += `<a class="popup-gallery-link" href="{{ site.baseurl }}/gallery/?tag=${loc.galleryTag}">${loc.viewPhotos}</a>`;
+  if(loc.galleryTag) h += `<a class="popup-gallery-link" href="{{ site.baseurl }}/it/gallery/?tag=${loc.galleryTag}">${loc.viewPhotos}</a>`;
   h += `</div>`;
   return h;
 }
 
 const markers = locations.map(loc => L.marker([loc.lat,loc.lng],{icon:makeIcon()}).bindPopup(popupHTML(loc),{maxWidth:300,minWidth:300}).addTo(map));
 L.polyline(locations.map(l=>[l.lat,l.lng]),{color:'rgba(201,119,58,0.22)',weight:1.5,dashArray:'4 8'}).addTo(map);
-
 document.querySelectorAll('.sidebar-item').forEach(item=>{
   item.addEventListener('click',()=>{
     const i = parseInt(item.dataset.idx);

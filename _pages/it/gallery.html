@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Gallery
-lang: en
+title: Galleria
+lang: it
 ref: gallery
-permalink: /gallery/
+permalink: /it/gallery/
 ---
-{% assign t = site.data.i18n['en'] %}
+{% assign t = site.data.i18n['it'] %}
 
 <style>
 .gallery-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:4px; padding:0 var(--gap) 4rem; max-width:var(--max-w); margin:0 auto; }
@@ -29,19 +29,20 @@ permalink: /gallery/
     <button class="filter-pill" data-tag="landscape">{{ t.filter_landscape }}</button>
     <button class="filter-pill" data-tag="architecture">{{ t.filter_architecture }}</button>
     <button class="filter-pill" data-tag="nature">{{ t.filter_nature }}</button>
-    <button class="filter-pill" data-tag="iceland">Iceland</button>
-    <button class="filter-pill" data-tag="japan">Japan</button>
-    <button class="filter-pill" data-tag="italy">Italy</button>
-    <button class="filter-pill" data-tag="norway">Norway</button>
+    <button class="filter-pill" data-tag="iceland">Islanda</button>
+    <button class="filter-pill" data-tag="japan">Giappone</button>
+    <button class="filter-pill" data-tag="italy">Italia</button>
+    <button class="filter-pill" data-tag="norway">Norvegia</button>
   </div>
 </div>
 
 <div class="gallery-grid" id="gallery-grid">
   {% for photo in site.data.gallery %}
   <div class="gallery-item reveal" data-tags="{{ photo.tags | join:' ' }}" onclick="openLightbox({{ forloop.index0 }}, galleryItems)">
-    <img src="{{ site.baseurl }}/images/thumbs/{{ photo.id }}.{{ photo.ext }}" alt="{{ photo.title | default: photo.location }}" loading="lazy">
+    <img src="{{ site.baseurl }}/images/thumbs/{{ photo.id }}.{{ photo.ext }}" alt="{{ photo.title_it | default: photo.title | default: photo.location }}" loading="lazy">
     <div class="gallery-item-overlay">
-      {% if photo.title %}<div class="gallery-item-title">{{ photo.title }}</div>{% endif %}
+      {% assign caption = photo.title_it | default: photo.title %}
+      {% if caption %}<div class="gallery-item-title">{{ caption }}</div>{% endif %}
       {% if photo.location %}<div class="gallery-item-loc">{{ photo.location }}</div>{% endif %}
     </div>
   </div>
@@ -49,6 +50,6 @@ permalink: /gallery/
 </div>
 
 <script>
-const galleryItems = [{% for photo in site.data.gallery %}{ full:"{{ site.baseurl }}/images/fulls/{{ photo.id }}.{{ photo.ext }}", caption:"{{ photo.title }}{% if photo.location %} — {{ photo.location }}{% endif %}" }{% unless forloop.last %},{% endunless %}{% endfor %}];
+const galleryItems = [{% for photo in site.data.gallery %}{ full:"{{ site.baseurl }}/images/fulls/{{ photo.id }}.{{ photo.ext }}", caption:"{{ photo.title_it | default: photo.title }}{% if photo.location %} — {{ photo.location }}{% endif %}" }{% unless forloop.last %},{% endunless %}{% endfor %}];
 document.addEventListener('DOMContentLoaded',()=>{ initFilters('#gallery-grid','.gallery-item','data-tags'); });
 </script>

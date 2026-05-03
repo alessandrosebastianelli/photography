@@ -1,53 +1,39 @@
-/* assets/js/main.js */
+/* assets/js/main.js — shared JS for all pages */
 
-// ── Mobile nav ──
 document.addEventListener('DOMContentLoaded', () => {
+
+  // ── Mobile nav ──
   const ham = document.querySelector('.nav-hamburger');
   const links = document.querySelector('.nav-links');
-  if (ham) ham.addEventListener('click', () => links.classList.toggle('open'));
+  if (ham && links) {
+    ham.addEventListener('click', () => links.classList.toggle('open'));
+  }
 
-  // Active nav link
+  // ── Active nav link ──
   const path = window.location.pathname;
   document.querySelectorAll('.nav-links a').forEach(a => {
-    if (a.getAttribute('href') && path.includes(a.getAttribute('href').replace(/^\/photography/, ''))) {
-      a.classList.add('active');
-    }
+    const href = a.getAttribute('href') || '';
+    // strip baseurl for comparison
+    const rel = href.replace(/^\/photography/, '') || '/';
+    const cur = path.replace(/^\/photography/, '') || '/';
+    if (rel !== '/' && cur.startsWith(rel)) a.classList.add('active');
+    if (rel === '/' && (cur === '/' || cur === '')) a.classList.add('active');
   });
 
-  // ── Scroll-reveal ──
+  // ── Scroll reveal ──
   const observer = new IntersectionObserver(entries => {
     entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        observer.unobserve(e.target);
-      }
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
     });
   }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  document.querySelectorAll('.reveal').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(18px)';
-    el.style.transition = 'opacity 0.65s ease, transform 0.65s ease';
-    observer.observe(el);
-  });
-
-  document.querySelectorAll('.reveal.visible').forEach(el => {
-    el.style.opacity = '1';
-    el.style.transform = 'translateY(0)';
-  });
-
-  // Polyfill observe → visible on mutation
-  const mo = new MutationObserver(() => {
-    document.querySelectorAll('.reveal.visible').forEach(el => {
-      el.style.opacity = '1';
-      el.style.transform = 'translateY(0)';
-    });
-  });
-  mo.observe(document.body, { attributes: true, subtree: true, attributeFilter: ['class'] });
+  // ── Lightbox ──
+  initLightbox();
 });
 
 // ── Filter pills ──
-function initFilters(gallerySelector, itemSelector, attrName) {
+function initFilters(containerSelector, itemSelector, attrName) {
   document.querySelectorAll('.filter-pill').forEach(pill => {
     pill.addEventListener('click', () => {
       document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
@@ -65,18 +51,17 @@ function initFilters(gallerySelector, itemSelector, attrName) {
 function initLightbox() {
   const lb = document.getElementById('lightbox');
   if (!lb) return;
-  const lbImg = lb.querySelector('.lb-img');
+  const lbImg     = lb.querySelector('.lb-img');
   const lbCaption = lb.querySelector('.lb-caption');
-  const lbClose = lb.querySelector('.lb-close');
-  const lbPrev = lb.querySelector('.lb-prev');
-  const lbNext = lb.querySelector('.lb-next');
+  const lbClose   = lb.querySelector('.lb-close');
+  const lbPrev    = lb.querySelector('.lb-prev');
+  const lbNext    = lb.querySelector('.lb-next');
   let items = [], current = 0;
 
   function open(i) {
     current = i;
-    const it = items[i];
-    lbImg.src = it.full;
-    lbCaption.textContent = it.caption || '';
+    lbImg.src = items[i].full;
+    lbCaption.textContent = items[i].caption || '';
     lb.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
@@ -84,8 +69,7 @@ function initLightbox() {
   function prev() { open((current - 1 + items.length) % items.length); }
   function next() { open((current + 1) % items.length); }
 
-  window.openLightbox = function(index, itemsArr) { items = itemsArr; open(index); };
-
+  window.openLightbox = (index, arr) => { items = arr; open(index); };
   lbClose.addEventListener('click', close);
   lbPrev.addEventListener('click', prev);
   lbNext.addEventListener('click', next);
@@ -98,15 +82,13 @@ function initLightbox() {
   });
 }
 
-document.addEventListener('DOMContentLoaded', initLightbox);
-
 // ── Drag-scroll strip ──
 function initDragScroll(el) {
   if (!el) return;
   let down = false, sx, sl;
-  el.addEventListener('mousedown', e => { down = true; sx = e.pageX - el.offsetLeft; sl = el.scrollLeft; el.style.cursor = 'grabbing'; });
+  el.addEventListener('mousedown', e => { down = true; el.style.cursor = 'grabbing'; sx = e.pageX - el.offsetLeft; sl = el.scrollLeft; });
   el.addEventListener('mouseleave', () => { down = false; el.style.cursor = 'grab'; });
-  el.addEventListener('mouseup', () => { down = false; el.style.cursor = 'grab'; });
+  el.addEventListener('mouseup',    () => { down = false; el.style.cursor = 'grab'; });
   el.addEventListener('mousemove', e => {
     if (!down) return;
     e.preventDefault();

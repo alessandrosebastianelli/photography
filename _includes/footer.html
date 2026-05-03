@@ -1,40 +1,45 @@
+{% assign lang = page.lang | default: 'en' %}
+{% assign t = site.data.i18n[lang] %}
+{% assign base_path = '' %}
+{% if lang == 'it' %}{% assign base_path = '/it' %}{% endif %}
+
 <footer class="site-footer">
   <div class="footer-grid">
     <div>
       <div class="footer-brand">Alessandro <span>·</span> Photography</div>
-      <p class="footer-desc">A personal journal of photography, travel and the practice of seeing. Based in Italy, shooting everywhere.</p>
+      <p class="footer-desc">{{ t.footer_desc }}</p>
     </div>
     <div class="footer-col">
-      <h4>Navigate</h4>
+      <h4>{{ t.footer_navigate }}</h4>
       <ul>
-        <li><a href="{{ site.baseurl }}/">Home</a></li>
-        <li><a href="{{ site.baseurl }}/blog/">Journal</a></li>
-        <li><a href="{{ site.baseurl }}/gallery/">Gallery</a></li>
-        <li><a href="{{ site.baseurl }}/map/">Map</a></li>
-        <li><a href="{{ site.baseurl }}/about/">About</a></li>
+        <li><a href="{{ site.baseurl }}/">{{ t.nav_home }}</a></li>
+        <li><a href="{{ site.baseurl }}{{ base_path }}/blog/">{{ t.nav_journal }}</a></li>
+        <li><a href="{{ site.baseurl }}{{ base_path }}/gallery/">{{ t.nav_gallery }}</a></li>
+        <li><a href="{{ site.baseurl }}{{ base_path }}/map/">{{ t.nav_map }}</a></li>
+        <li><a href="{{ site.baseurl }}{{ base_path }}/about/">{{ t.nav_about }}</a></li>
       </ul>
     </div>
     <div class="footer-col">
-      <h4>Topics</h4>
+      <h4>{{ t.footer_topics }}</h4>
       <ul>
-        <li><a href="{{ site.baseurl }}/blog/?tag=travel">Travel</a></li>
-        <li><a href="{{ site.baseurl }}/blog/?tag=technique">Technique</a></li>
-        <li><a href="{{ site.baseurl }}/blog/?tag=gear">Gear</a></li>
-        <li><a href="{{ site.baseurl }}/blog/?tag=film">Film</a></li>
+        <li><a href="{{ site.baseurl }}{{ base_path }}/blog/?tag=travel">{{ t.footer_topic_travel }}</a></li>
+        <li><a href="{{ site.baseurl }}{{ base_path }}/blog/?tag=technique">{{ t.footer_topic_technique }}</a></li>
+        <li><a href="{{ site.baseurl }}{{ base_path }}/blog/?tag=gear">{{ t.footer_topic_gear }}</a></li>
+        <li><a href="{{ site.baseurl }}{{ base_path }}/blog/?tag=film">{{ t.footer_topic_film }}</a></li>
       </ul>
     </div>
     <div class="footer-col">
-      <h4>Elsewhere</h4>
+      <h4>{{ t.footer_elsewhere }}</h4>
       <ul>
         {% if site.instagram %}<li><a href="https://instagram.com/{{ site.instagram }}" target="_blank">Instagram</a></li>{% endif %}
         {% if site.github %}<li><a href="https://github.com/{{ site.github }}" target="_blank">GitHub</a></li>{% endif %}
         {% if site.linkedin %}<li><a href="https://linkedin.com/in/{{ site.linkedin }}" target="_blank">LinkedIn</a></li>{% endif %}
-        <li><a href="{{ site.baseurl }}/feed.xml">RSS Feed</a></li>
+        <li><a href="{{ site.baseurl }}/feed.xml">RSS</a></li>
       </ul>
     </div>
   </div>
   <div class="footer-bottom">
-    <p class="footer-copy">© {{ 'now' | date: "%Y" }} Alessandro Sebastianelli. All rights reserved.</p>
+    <p class="footer-copy">© {{ 'now' | date: "%Y" }} Alessandro Sebastianelli. {{ t.footer_rights }}</p>
     <div class="footer-social">
       {% if site.instagram %}<a href="https://instagram.com/{{ site.instagram }}" target="_blank">Instagram</a>{% endif %}
       {% if site.github %}<a href="https://github.com/{{ site.github }}" target="_blank">GitHub</a>{% endif %}
