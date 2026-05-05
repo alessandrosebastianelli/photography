@@ -2,66 +2,24 @@
 # Drives the interactive travel map. Shared across EN and IT.
 # posts: list of post slugs (filename without date prefix and .md)
 
-- name: "Reykjavík, Iceland"
-  name_it: "Reykjavík, Islanda"
-  lat: 64.1355
-  lng: -21.8954
+
+#- name: "Kyoto, Japan"
+  #name_it: "Kyoto, Giappone"
+  #lat: 35.0116
+  #lng: 135.7681
+  #country: "Japan"
+  #country_it: "Giappone"
+  #cover: "/images/thumbs/2.jpg"
+  #posts:
+  #  - "kyoto-at-dusk"
+  #gallery_tag: "japan"
+
+- name: "Skógafoss, Iceland"
+  name_it: "Skógafoss, Islanda"
+  lat: 63.53210796320555
+  lng: -19.51136562301013
   country: "Iceland"
   country_it: "Islanda"
   cover: "/images/thumbs/1.jpg"
   posts:
-    - "iceland-november-aurora"
   gallery_tag: "iceland"
-
-- name: "Kyoto, Japan"
-  name_it: "Kyoto, Giappone"
-  lat: 35.0116
-  lng: 135.7681
-  country: "Japan"
-  country_it: "Giappone"
-  cover: "/images/thumbs/2.jpg"
-  posts:
-    - "kyoto-at-dusk"
-  gallery_tag: "japan"
-
-- name: "Matera, Italy"
-  name_it: "Matera, Italia"
-  lat: 40.6664
-  lng: 16.6043
-  country: "Italy"
-  country_it: "Italia"
-  cover: "/images/thumbs/3.jpg"
-  posts:
-    - "matera-stone-city"
-  gallery_tag: "italy"
-
-- name: "Lofoten Islands, Norway"
-  name_it: "Isole Lofoten, Norvegia"
-  lat: 68.1532
-  lng: 13.9931
-  country: "Norway"
-  country_it: "Norvegia"
-  cover: "/images/thumbs/4.jpg"
-  posts:
-    - "lofoten-winter-diary"
-  gallery_tag: "norway"
-
-- name: "Dolomites, Italy"
-  name_it: "Dolomiti, Italia"
-  lat: 46.4102
-  lng: 11.8440
-  country: "Italy"
-  country_it: "Italia"
-  cover: "/images/thumbs/5.jpg"
-  posts: []
-  gallery_tag: "dolomites"
-
-- name: "Alberobello, Italy"
-  name_it: "Alberobello, Italia"
-  lat: 40.7841
-  lng: 17.2394
-  country: "Italy"
-  country_it: "Italia"
-  cover: "/images/thumbs/6.jpg"
-  posts: []
-  gallery_tag: "italy"
