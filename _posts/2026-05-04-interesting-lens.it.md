@@ -6,7 +6,7 @@ lang: it
 ref: interesting-lens
 tags: [attrezzatura]
 location: "Roma, Italia"
-cover_image: /images/fulls/1.jpg
+cover_image: /images/fulls/51.jpg
 excerpt: "Una lente economica che non avrei mai immaginato potesse offrirmi un'esperienza così interessante!"
 read_time: 8
 featured: true
