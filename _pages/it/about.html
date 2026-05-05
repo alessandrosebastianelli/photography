@@ -35,7 +35,7 @@ permalink: /it/about/
 <div class="about-grid">
   <div class="portrait-wrap reveal">
     <div class="portrait-frame">
-      <!-- <img src="{{ site.baseurl }}/images/portrait.jpg" alt="Alessandro"> -->
+      <img src="{{ site.baseurl }}/images/portrait.jpg">
     </div>
     <div class="about-stats">
       <div class="about-stat"><div class="about-stat-num">{{ site.data.gallery | size }}+</div><div class="about-stat-label">{{ t.about_photos }}</div></div>
@@ -60,8 +60,7 @@ permalink: /it/about/
     </ul>
     <h3>{{ t.about_contact }}</h3>
     <p>{{ t.about_contact_text }}
-      {% if site.instagram %}<a href="https://instagram.com/{{ site.instagram }}" style="color:var(--accent-soft)">Instagram</a> o {% endif %}
-      <a href="https://github.com/{{ site.github }}" style="color:var(--accent-soft)">GitHub</a>.
+      {% if site.instagram %}<a href="https://instagram.com/{{ site.instagram }}" style="color:var(--accent-soft)">Instagram</a> {% endif %}.
     </p>
   </div>
 </div>
