@@ -20,7 +20,7 @@ E sì, l'immagine di copertina è stata scattata con questo obiettivo!
 
 ## La lente
 
-L'AstrHori 10mm F8 II è un obiettivo fisheye pancake per fotocamere Fujifilm X-Mount. "Pancake" si riferisce al suo profilo estremamente piatto (solo 12mm di spessore) che lo rende quasi invisibile sulla fotocamera.
+L'AstrHori 10mm F8 II è un obiettivo fisheye pancake. "Pancake" si riferisce al suo profilo estremamente piatto (solo 12mm di spessore) che lo rende quasi invisibile sulla fotocamera.
 
 Le specifiche sono minime per design: apertura fissa f/8, solo messa a fuoco manuale, campo visivo di 180°. Su un sensore APS-C, i 10mm equivalgono a 15mm, con quella caratteristica distorsione fisheye che piega il mondo in qualcosa di quasi sferico. La formula ottica — 5 elementi in 4 gruppi, inclusi 3 elementi ED (Extra-low Dispersion) — è modesta ma sorprendentemente efficace nel contenere l'aberrazione cromatica.
 

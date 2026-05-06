@@ -20,7 +20,7 @@ And yes, the cover image has been taken with this lens!
 
 ## The lens
 
-The AstrHori 10mm F8 II is a fisheye pancake lens for Fujifilm X-Mount cameras. "Pancake" refers to its remarkably flat profile (just about 12mm thick) which makes it almost disappear on the front of your camera body.
+The AstrHori 10mm F8 II is a fisheye pancake lens. "Pancake" refers to its remarkably flat profile (just about 12mm thick) which makes it almost disappear on the front of your camera body.
 
 The specs are minimal by design: fixed aperture of f/8, manual focus only, and a field of view of 180°. On an APS-C sensor, the 10mm focal length gives a 15mm equivalent, with that characteristic fisheye distortion that curves the world into something almost spherical. The optical formula — 5 elements in 4 groups, including 3 ED (Extra-low Dispersion) elements — is modest but surprisingly capable at keeping chromatic aberration in check.
 
