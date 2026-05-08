@@ -211,3 +211,28 @@ a { color: inherit; text-decoration: none; }
 @media (max-width: 580px) {
   .footer-grid { grid-template-columns: 1fr; }
 }
+
+.post-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 4px;
+  margin: 2rem 0;
+}
+
+.post-gallery-item {
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--panel);
+}
+
+.post-gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.post-gallery-item:hover img {
+  transform: scale(1.05);
+}
