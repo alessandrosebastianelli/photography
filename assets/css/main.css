@@ -2,7 +2,7 @@
    assets/css/main.css — Design tokens + global styles
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap');
+@import url('https: //fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 :root {
   --ink:         #0e0d0b;
@@ -14,7 +14,7 @@
   --muted:       #7a6f5e;
   --accent:      #c9773a;
   --accent-soft: #e8a96a;
-  --serif:       'Cormorant Garamond', Georgia, serif;
+  --serif:       'Montserrat', Georgia, serif;
   --mono:        'DM Mono', monospace;
   --max-w:       1400px;
   --gap:         3rem;
