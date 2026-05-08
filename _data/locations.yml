@@ -23,3 +23,13 @@
   cover: "/images/thumbs/1.jpg"
   posts:
   gallery_tag: "iceland"
+
+- name: "Golden Gate, San Francisco, USA"
+  name_it: "Golden Gate, San Francisco, USA"
+  lat: 37.80432697030492
+  lng: -122.47669993921988
+  country: "USA"
+  country_it: "Stati Uniti"
+  cover: "/images/thumbs/52.jpg"
+  posts:
+  gallery_tag: "usa"
