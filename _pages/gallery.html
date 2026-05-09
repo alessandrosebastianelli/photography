@@ -26,13 +26,10 @@ permalink: /gallery/
 <div style="padding:0 var(--gap) 2rem;max-width:var(--max-w);margin:0 auto;">
   <div class="filter-bar">
     <button class="filter-pill active" data-tag="all">{{ t.filter_all }}</button>
-    <button class="filter-pill" data-tag="landscape">{{ t.filter_landscape }}</button>
-    <button class="filter-pill" data-tag="architecture">{{ t.filter_architecture }}</button>
-    <button class="filter-pill" data-tag="nature">{{ t.filter_nature }}</button>
-    <button class="filter-pill" data-tag="iceland">Iceland</button>
-    <button class="filter-pill" data-tag="japan">Japan</button>
-    <button class="filter-pill" data-tag="italy">Italy</button>
-    <button class="filter-pill" data-tag="norway">Norway</button>
+    {% assign all_tags = site.data.gallery | map:"tags" | join:"," | split:"," | uniq | sort %}
+    {% for tag in all_tags %}
+    <button class="filter-pill" data-tag="{{ tag }}">{{ tag }}</button>
+    {% endfor %}
   </div>
 </div>
 

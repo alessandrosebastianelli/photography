@@ -31,13 +31,10 @@ permalink: /blog/
 <div class="posts-list">
   <div class="filter-bar">
     <button class="filter-pill active" data-tag="all">{{ t.filter_all }}</button>
-    <button class="filter-pill" data-tag="travel">Travel</button>
-    <button class="filter-pill" data-tag="technique">Technique</button>
-    <button class="filter-pill" data-tag="gear">Gear</button>
-    <button class="filter-pill" data-tag="film">Film</button>
-    <button class="filter-pill" data-tag="italy">Italy</button>
-    <button class="filter-pill" data-tag="iceland">Iceland</button>
-    <button class="filter-pill" data-tag="japan">Japan</button>
+    {% assign all_tags = site.posts | where:"lang","en" | map:"tags" | join:"," | split:"," | uniq | sort %}
+    {% for tag in all_tags %}
+    <button class="filter-pill" data-tag="{{ tag }}">{{ tag }}</button>
+    {% endfor %}
   </div>
 
   {% for post in site.posts %}
