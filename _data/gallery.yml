@@ -13,7 +13,7 @@
 - id: "52"
   ext: jpg
   title: "Golden Gate Bridge"
-  title_it: "Golden Gate Bridge"
+  title_it: "Ponte Golden Gate"
   location: "Golden Gate, San Francisco, USA"
   tags: [usa, landscape, bridge]
   date: "2023-10-22"
@@ -21,7 +21,7 @@
 - id: "51"
   ext: jpg
   title: "Keukenhof Park"
-  title_it: "Keukenhof Park"
+  title_it: "Parco di Keukenhof"
   location: "Keukenhof, Netherlands"
   tags: [netherlands, landscape, flowers]
   date: "2026-04-30"
