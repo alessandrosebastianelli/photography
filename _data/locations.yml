@@ -32,4 +32,16 @@
   country_it: "Stati Uniti"
   cover: "/images/thumbs/52.jpg"
   posts:
+    - "best-shot"
   gallery_tag: "usa"
+
+- name: "Keukenhof, Netherlands"
+  name_it: "Keukenhof, Paesi Bassi"
+  lat: 52.26980715379117
+  lng: 4.5469550548332345
+  country: "Netherlands"
+  country_it: "Paesi Bassi"
+  cover: "/images/thumbs/51.jpg"
+  posts:
+    - "interesting-lens"
+  gallery_tag: "netherlands"
