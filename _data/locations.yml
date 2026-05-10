@@ -45,3 +45,13 @@
   posts:
     - "interesting-lens"
   gallery_tag: "netherlands"
+
+- name: "Carezza Lake, Carezza, Italy"
+  name_it: "Lago di Carezza, Carezza, Italia"
+  lat: 46.4094664974894
+  lng: 11.574766647058176
+  country: "Italy"
+  country_it: "Italia"
+  cover: "/images/thumbs/26.jpg"
+  posts:
+  gallery_tag: "italy, lakes"

@@ -25,3 +25,11 @@
   location: "Keukenhof, Netherlands"
   tags: [netherlands, landscape, flowers]
   date: "2026-04-30"
+
+- id: "26"
+  ext: jpg
+  title: "Carezza Lake"
+  title_it: "Lago di Carezza"
+  location: "Lago di Carezza, Carezza, Italy"
+  tags:  [landscape, lake]
+  date: "2021-08-12"
