@@ -55,3 +55,23 @@
   cover: "/images/thumbs/26.jpg"
   posts:
   gallery_tag: "italy, lakes"
+
+- name: "Fisherman's Bastion, Budapest, Hungary"
+  name_it: "Bastione dei Pescatori, Budapest, Ungheria"
+  lat: 47.502298638853745 
+  lng: 19.034781197731785
+  country: "Hungary"
+  country_it: "Ungheria"
+  cover: "/images/thumbs/32.jpg"
+  posts:
+  gallery_tag: "hungary, cities, landscape, portrait"
+
+- name: "Víkurfjara Black Sand Beach, Vik, Iceland"
+  name_it: "La spiaggia nera di Víkurfjara, Vik, Islanda"
+  lat: 63.414371113636115 
+  lng: -19.009876759683795
+  country: "Iceland"
+  country_it: "Islanda"
+  cover: "/images/thumbs/4.jpg"
+  posts:
+  gallery_tag: "iceland, beaches, landscape"

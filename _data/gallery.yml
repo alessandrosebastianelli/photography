@@ -33,3 +33,20 @@
   location: "Lago di Carezza, Carezza, Italy"
   tags:  [landscape, lake]
   date: "2021-08-12"
+
+- id: "32"
+  ext: jpg
+  title: "Fisherman's Bastion"
+  title_it: "Bastione del Pescatori"
+  location: "Budapest, Hungary"
+  tags:  [landscape, city, portrait]
+  date: "2021-10-16"
+
+- id: "4"
+  ext: jpg
+  title: "Víkurfjara Black Sand Beach"
+  title_it: "La spiaggia nera di Víkurfjara"
+  location: "Vik, Iceland"
+  tags:  [landscape, beach]
+  date: "2021-09-20"
+  date: "2021-10-16"
